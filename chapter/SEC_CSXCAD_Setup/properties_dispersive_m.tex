@@ -1,0 +1,90 @@
+%Dispersive Material
+User can model a Drude type dispersive material by function \texttt{AddLorentzMaterial()}. Dispersive material has frequency dependent relative permittivity($\varepsilon_{r}$) and permeability($\mu_{r}$), and they can be defined with function \texttt{ SetMaterialProperty()}.
+\begin{equation}
+\varepsilon_{r}(\omega)=\varepsilon_{r}*(1-\dfrac{\omega_{\varepsilon}^2}{\omega*(\omega-j/t_{\varepsilon})})
+\end{equation}
+\begin{equation}
+\mu_{r}(\omega)=\mu_{r}*(1-\dfrac{\omega_{\mu}^2}{\omega*(\omega-j/t_{\mu})})
+\end{equation}
+where \begin{myindentpar}
+\begin{itemize}
+\item $\omega_{\varepsilon}$: the respective electric angular plasma frequency
+\item $t_{\varepsilon}$: the electric relaxation time 
+\item $\omega_{\mu}$:the respective magnetic angular plasma frequency
+\item $t_{\mu}$:the magnetic relaxation time
+\end{itemize}
+\end{myindentpar}
+
+\begin{FontNameFunct}{AddLorentzMaterial}
+\end{FontNameFunct}
+
+\begin{FontDescr}{Syntax:}
+  \begin{lstlisting}
+ CSX = AddLorentzMaterial(CSX, name)
+  \end{lstlisting}
+\end{FontDescr}
+
+\begin{FontDescr}{Description:}
+  This syntax adds a Drude type dispersive material model with the given name.\\ 
+\end{FontDescr} 
+  
+
+\begin{FontNameFunct}{SetMaterialProperty}  
+\end{FontNameFunct}
+In this section the frequency dependent properties $\varepsilon_{r}(\omega)$ and $\mu_{r}(\omega)$ will be defined. Refer to \ref{subsection_material_prop} for non-dispersive material properties setup. 
+
+ \begin{FontDescr}{Syntax:}
+  \begin{lstlisting}
+ CSX = SetMaterialProperty(CSX, name, varargin)
+  \end{lstlisting}
+ \end{FontDescr}
+ 
+ \begin{FontDescr}{Arguments:}  
+ 
+  \begin{FontPara}{EpsilonPlasmaFrequency}
+  Electric plasma frequency($f_{\varepsilon}$). It equals to   $\omega_{\varepsilon}/2\pi$. 
+  \end{FontPara} 
+  \begin{FontPara}{MuePlasmaFrequency}($f_{\mu}$)
+  Magnetic plasma frequency.It equals to $\omega_{\mu}/2\pi$.   
+  \end{FontPara}
+  \begin{FontPara}{EpsilonRelaxTime}   
+   Electric plasma relaxation time($t_{\varepsilon}$). Smaller number results in greater losses or alternatively set it to '0' for lossless case. 
+   \end{FontPara}
+  \begin{FontPara}{MueRelaxTime}  
+  Magnetic plasma relaxation time($t_{\mu}$).Smaller number results in greater losses or alternatively set it to '0' for lossless case.
+ \end{FontPara}
+
+For higher order Drude type, the above mentioned material constant is modified to: 
+
+ \textcolor{varcol}{\texttt{EpsilonPlasmaFrequency$\_<n>$}}
+\begin{myindentpar}
+ n-th electric plasma frequency.
+\end{myindentpar} 
+  \textcolor{varcol}{\texttt{MuePlasmaFrequency$\_<n>$} }  
+  \begin{myindentpar}
+  n-th magnetic plasma frequency. 
+  \end{myindentpar} 
+  \textcolor{varcol}{\texttt{EpsilonRelaxTime$\_<n>$}} 
+   \begin{myindentpar}
+   n-th electric plasma relaxation time($t_{\varepsilon}$).   \end{myindentpar} 
+ \textcolor{varcol}{\texttt{MueRelaxTime$\_<n>$}} 
+\begin{myindentpar}
+n-th magnetic plasma relaxation time($t_{\mu}$).
+ \end{myindentpar}  
+\end{FontDescr}  
+
+
+\begin{FontDescr}{Example:}  
+\begin{lstlisting} 
+ CSX = AddLorentzMaterial(CSX,'drude');
+ CSX = SetMaterialProperty(CSX,'drude','Epsilon',5,
+ 'EpsilonPlasmaFrequency',5e9,'EpsilonRelaxTime',1e-9);
+ CSX = SetMaterialProperty(CSX,'drude','Mue',5,
+ 'MuePlasmaFrequency',5e9,'MueRelaxTime',1e-9);
+\end{lstlisting}
+  
+  A Lorent material of name 'drude' has been defined. Its $\varepsilon_{r}$ and $\mu_{r}$ are set to 5 ,$f_{\varepsilon}$ and $f_{\mu}$ are both at 500M Hz while $t_{\varepsilon}$ and $t_{\mu}$ value 1e-9. 
+ \end{FontDescr}
+  
+  
+  
