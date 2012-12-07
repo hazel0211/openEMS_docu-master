@@ -1,0 +1,50 @@
+Lumped elements like capacitor , resistor and inductor are important for tuning or matching purpose. These elements can be added into CSX with specified value and direction with function \texttt{AddLumpedElement()}. 
+
+\begin{FontNameFunct}{AddLumpedElement()}
+\end{FontNameFunct}
+
+
+\begin{FontDescr}{Syntax:}
+  \begin{lstlisting}
+CSX = AddLumpedElement(CSX, name, direction, varargin)
+  \end{lstlisting}
+ \end{FontDescr} 
+ 
+\begin{FontDescr}{Description:}
+\begin{FontPara}{direction}
+This sets orientation of lumped elements. If a lumped element is aimed to connect two faces which are in z-direction separated, then z-orientation lumped element has to be chosen. 
+ \begin{itemize}
+ \item \textcolor{green}{0} :x-orientation 
+ \item \textcolor{green}{1} :y-orientation
+ \item \textcolor{green}{2} :z-orientation
+ \end{itemize}
+ \end{FontPara}
+\end{FontDescr}
+
+  
+\begin{FontDescr}{Arguments:} 
+ To define which lumped element to be added. 
+ 
+ \begin{FontPara}{R}
+ Lumped resistor
+ \end{FontPara}
+ \begin{FontPara}{C}
+ Lumped capacitor
+ \end{FontPara}
+ \begin{FontPara}{L}
+ Lumped inductor
+ \end{FontPara}
+ \begin{FontPara}{Caps}
+It can be set to 0 or 1 to (de)activate lumped capacitor.(1=default) 
+ \end{FontPara}               
+ 
+\end{FontDescr}
+ 
+ 
+\begin{FontDescr}{Example:}
+
+\begin{lstlisting} 
+CSX = AddLumpedElement( CSX, 'Capacitor', 0, 'Caps', 1, 'C', 5e-12 );
+\end{lstlisting}
+ A lumped capacitor in x-direction with 5pF has been added and activated. It is named as 'Capacitor'. 
+\end{FontDescr}

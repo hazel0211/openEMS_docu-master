@@ -1,0 +1,58 @@
+This section shows how a metal/PEC material is introduced into
+ \hyperref[CSX]{\matv{CSX}}.
+ 
+\begin{FontNameFunct}{AddMetal()}
+\end{FontNameFunct}
+
+\begin{FontDescr}{Syntax:}
+  \begin{lstlisting}
+ CSX = AddMetal(CSX, name)
+  \end{lstlisting}
+\end{FontDescr}  
+
+\begin{FontDescr}{Description:}
+This function introduces perfect electric conductor of no loss into \hyperref[CSX]{\matv{CSX}}.
+\end{FontDescr}
+
+ 
+\begin{FontNameFunct}{AddConductingSheet()}
+\end{FontNameFunct}
+
+\begin{FontDescr}{Purpose:}
+To add a lossy conducting material into \hyperref[CSX]{\matv{CSX}}.
+\end{FontDescr}
+
+\begin{FontDescr}{Syntax:}
+  \begin{lstlisting}
+CSX = AddConductingSheet(CSX, name, conductivity, thickness)
+  \end{lstlisting}
+\end{FontDescr} 
+
+\begin{FontDescr}{Description:}
+
+\begin{FontPara}{conductivity}
+It is given by user according to the conductivity of metal being used. The most frequent used metal is copper and its conductivity is 58e6$Sm^{-1}$.    
+\end{FontPara}
+
+ \begin{FontPara}{thickness}
+ It defines the thickness of lossy metal sheet.     
+ \end{FontPara}
+\end{FontDescr} 
+
+\begin{FontDescr}{Examples:} 
+
+\begin{lstlisting} 
+CSX = AddMetal(CSX,'metal'); 
+\end{lstlisting}
+This syntax adds PEC material into \hyperref[CSX]{\matv{CSX}} with the name 'metal'. \\
+
+\begin{lstlisting} 
+CSX = AddConductingSheet(CSX,'copper',56e6,70e-6);
+\end{lstlisting}
+This syntax adds a conducting sheet of 70$\mu$m into \hyperref[CSX]{\matv{CSX}}. The assigned metal is named copper and has conductivity of 58e6$Sm^{-1}$.  
+
+ \end{FontDescr} 
+ 
+ 
+ 
+ 
