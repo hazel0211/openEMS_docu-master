@@ -1,0 +1,264 @@
+Previously, the time or frequency signal excitation has been introduced in chapter~\ref{sec:FDTD_Excitation}. In this section, its geometrical distribution will be discussed. An excitation signal must be set (into \matv{FDTD}) before specifying its geometrical structure. 
+
+Either a voltage source($U$) or a current source ($I$) can be defined with field property in function \texttt{AddExcitation()}. A voltage source can be seen as 
+$\mathbf{E}$-field excitation while current source as $\mathbf{H}$-field excitation. 
+
+    \begin{equation}
+    U=\oint_{C}\vec{\mathbf{E}}.d\overrightarrow{s}
+    \end{equation}
+    \begin{equation}
+    I=\oint_{C}\vec{\mathbf{H}}.d\overrightarrow{s}
+    \end{equation}\\
+
+\begin{FontNameFunct}{AddExcitation()}
+\end{FontNameFunct}
+
+\begin{FontDescr}{Purpose:}
+Create an $\mathbf{E}$-field or $\mathbf{H}$-field excitation.
+\end{FontDescr}
+
+\begin{FontDescr}{Syntax:}
+  \begin{lstlisting}
+  CSX = AddExcitation(CSX, name, type, excite, varargin)
+  \end{lstlisting}
+\end{FontDescr}
+
+\begin{FontDescr}{Description:}
+ 
+A soft type field sums the from time to time updated field of the structure and field of the source while a hard type field calculate only the field of the source. It can be understood as a field locates within air enviroment for soft type field or lies near to a metal(PEC/PMC) condition for a hard type field(the total field is same as the reflected field of the source field).  
+
+$\mathbf{E}$-field will be calculated as: 
+
+Soft-type:
+\begin{equation}
+\vec{\mathbf{E}}=\vec{\mathbf{E}}_{\text{fdtd}}+\vec{\mathbf{E}}_{\text{src}} 
+\end{equation}   
+
+Hard-type:
+\begin{equation}
+\vec{\mathbf{E}}=\vec{\mathbf{E}}_{\text{src}}     
+\end{equation}   
+
+The same applies to $\mathbf{H}$-field.
+
+\begin{FontPara}{type}
+\textcolor{green}{0} : $\mathbf{E}$-field soft excitation \\
+\textcolor{green}{1} : $\mathbf{E}$-field hard excitation\\
+\textcolor{green}{2} : $\mathbf{H}$-field soft excitation\\
+\textcolor{green}{3} : $\mathbf{H}$-field hard excitation\\
+\textcolor{green}{10}: plane wave excitation
+\end{FontPara}
+
+\begin{FontPara}{excite}\phantomsection\label{excite_dir}
+Row vector for direction of excitation.
+\begin{myindentpar}
+  x-or r-direction: [1 0 0] \\
+  y-direction: [0 1 0] \\
+  z-direction: [0 0 1] 
+\end{myindentpar}
+\end{FontPara}
+
+\end{FontDescr}
+
+\begin{FontDescr}{Additional Arguments:}
+
+\begin{FontPara}{'Delay'} \phantomsection\label{delay}
+Setup an excitation time delay in seconds. If a $x$ phase delay(in degree) at frequency $f_{1}$ is desired, 
+\begin{equation}
+delay= \dfrac{x}{360*f_{1}}
+\end{equation}   
+\end{FontPara}
+
+\begin{FontPara}{'PropDir'} 
+Only for plane wave type excitation use. Describe the direction of plane wave propagation.
+\end{FontPara}
+\end{FontDescr}
+
+\begin{FontDescr}{Example:}
+\begin{lstlisting} 
+ CSX = AddExcitation( CSX, 'Dipole', 1, [1 0 0] );
+\end{lstlisting}
+An E-Field hard excitation in x-direction has been defined in \hyperref[CSX]{\matv{CSX}} with the name Dipole. 
+\end{FontDescr}
+
+
+\begin{FontNameFunct}{AddPlaneWaveExcite()}
+\end{FontNameFunct}
+
+\begin{FontDescr}{Purpose:}
+To create a plane wave excitation in air/vacuum and
+completely surround a structure. The plane wave excitation must not intersect with any kind of material. Only box property(refer to ~) can be used to describe this excitation. 
+
+\end{FontDescr}
+
+\begin{FontDescr}{Syntax:}
+\begin{lstlisting}
+CSX = AddPlaneWaveExcite(CSX, name, k_dir, E_dir, <f0, varargin>)
+\end{lstlisting}
+\end{FontDescr}
+
+\begin{FontDescr}{Description:}
+
+\textcolor{varcol}{k$\_$dir}
+\begin{myindentpar}%[3em]
+A row vector to describe direction of wave propagation($\vec{\mathbf{S}}$).
+It must be orthorgonal to E$\_$dir. Refer to \hyperref[excite_dir]{\matv{'excite'}} in previous function for vector description.
+\end{myindentpar}
+
+\begin{equation}
+\vec{\mathbf{S}}=\vec{\mathbf{E}}\times\vec{\mathbf{H}}
+\end{equation}
+
+\textcolor{varcol}{E$\_$dir} \phantomsection\label{Edir}
+\begin{myindentpar}%[3em]
+A row vector to describe direction of polarisation. It equals to direction of $\mathbf{E}$-field($\vec{\mathbf{E}}$). Refer to \hyperref[excite_dir]{\matv{'excite'}} in previous function for vector description. 
+\end{myindentpar}
+\end{FontDescr}
+
+\begin{FontDescr}{Additional Argument:}
+\begin{FontPara}{f0}
+Frequency for numerical phase velocity compensation
+\end{FontPara}
+\end{FontDescr}
+
+\begin{FontDescr}{Example:}
+\begin{lstlisting} 
+ k_dir = [1 0 0]; 
+ E_dir = [0 0 1]; 
+ f0 = 500e6;      
+ CSX = AddPlaneWaveExcite(CSX, 'plane_wave', k_dir, E_dir, f0);
+\end{lstlisting}
+A plavewave excitation has been added into\hyperref[CSX]{\matv{CSX}} with the name plane$\_$wave. It is z-polarised and propagate in x-direction.  
+\end{FontDescr}
+
+
+\begin{FontNameFunct}{AddLumpedPort()}
+\end{FontNameFunct}
+
+\begin{FontDescr}{Purpose:}
+Add a 3D geometry as excitation element.
+\end{FontDescr}
+
+\begin{FontDescr}{Syntax:}
+  \begin{lstlisting}
+ [CSX] = AddLumpedPort( CSX, prio, portnr, R, start, stop, dir, excitename, varargin )
+  \end{lstlisting}
+\end{FontDescr}
+
+\begin{FontDescr}{Description:}
+ A lumped port has been added into \hyperref[CSX]{\matv{CSX}} with the give name. 
+ 
+\begin{FontPara}{prio}
+Priority for substrate and probe boxes of the lumped port. The element of higher priority will be simulated whenever two elements of different priority are overlapping.  
+\end{FontPara}
+
+\begin{FontPara}{portnr}
+Integer to represent port number. If more than one port is defined, different port numbers are recommended. 
+\end{FontPara}
+
+\begin{FontPara}{R}
+Port internal resistance. For matching with the transmission line, it should be set to 50$\Omega$. 
+\end{FontPara}
+
+\begin{FontPara}{start}
+A row vector to represent the starting point of the 3D geometry.
+\end{FontPara}
+
+\begin{FontPara}{stop}
+A row vector to represent the end point of the 3D geometry.
+\end{FontPara}
+
+\begin{FontPara}{dir}
+Direction of port. Refer to \hyperref[excite_dir]{\matv{'excite'}} in previous function.
+\end{FontPara}
+
+\begin{FontPara}{excitename}
+If it is defined, the port is switched on. Else, it is only a(lossy)conducting path.
+\end{FontPara}
+
+\end{FontDescr} 
+
+\begin{FontDescr}{Additional Argument:}
+\begin{FontPara}{'Delay'}
+Setup an excitation time delay in seconds. Refer to \hyperref[delay]{\matv{'delay'}} in previous function.
+\end{FontPara}
+\end{FontDescr} 
+
+\begin{FontDescr}{Example:}
+
+\begin{lstlisting} 
+ start = [-0.1 -0.1 0];
+ stop  = [ 0.1 0.1 5];
+ [CSX] = AddLumpedPort(CSX, 5 ,1 , 50, start, stop, [0 0 1], 'excite');
+\end{lstlisting}
+A z-direction lumped port of dimension 0.2x0.2x5 has been switched on. It has priority of 5 and internal resistance of 50$\Omega$. If the 'excite' is omitted, this port is switched off. 
+   
+\begin{lstlisting} 
+ start = [-0.1 -0.1 0];
+ stop  = [ 0.1 0.1 5];
+ [CSX] = AddLumpedPort(CSX, 5 ,1 , 50, start, stop, [0 0 1], 'excite','Delay',1/4/300e6 );
+\end{lstlisting}
+The port with $90^{0}$ phase shift has been switched on. 
+\end{FontDescr}
+
+
+\begin{FontNameFunct}{AddMSLPort()}
+\end{FontNameFunct}
+
+\begin{FontDescr}{Purpose:}
+Create a MSL port with defined material property. 
+\end{FontDescr}
+
+\begin{FontDescr}{Syntax:}
+  \begin{lstlisting}
+[CSX,port] = AddMSLPort( CSX, prio, portnr, materialname, start, stop, dir, evec, varargin )
+  \end{lstlisting}
+\end{FontDescr}
+
+\begin{FontDescr}{Description:}
+\begin{FontPara}{materialname}
+Property for the MSL. Function \texttt{AddMetal()}can be used to defined its property. 
+\end{FontPara}
+
+\begin{FontPara}{dir}
+A number to represent wave propagation direction.\\
+\textcolor{green}{0}= x-direction\\
+\textcolor{green}{1}= y-direction\\
+\textcolor{green}{2}= z-direction\\
+\end{FontPara}
+
+\begin{FontPara}{evec}
+Refer to \hyperref[Edir]{\matv{Edir}} of function \texttt{AddLumpedPort()}. 
+\end{FontPara}
+\end{FontDescr}
+
+\begin{FontDescr}{Additional Arguments:}
+\begin{FontPara}{'ExcitePort'}
+An excitation name.If it is defined, the port is switched on.
+\end{FontPara}
+\begin{FontPara}{'FeedShift'}
+Shift from start to port by a given distance in drawing units. Default is 0. Only active if 'ExcitePort' is set.
+\end{FontPara}
+\begin{FontPara}{'MeasPlaneShift'}
+Shift the measure plane to a distance specified in drawing unit. Default is the middle of start and stop vector. Only active if 'ExcitePort' is set.
+\end{FontPara}
+
+\textcolor{varcol}{'Feed$\_$R'}
+Port resistance. Default is zero. It only active if 'ExcitePort' is set.
+
+\end{FontDescr}
+
+\begin{FontDescr}{Example:}
+\begin{lstlisting} 
+start=[0 0 height]; 
+stop = [length width 0]; 
+CSX = AddMetal( CSX, 'metal' ); %create a PEC called 'metal'
+[CSX,port] = AddMSLPort( CSX, 0, 1, 'metal', start,
+             stop,0, [0 0 -1],'ExcitePort','excite',     
+              'Feed_R', 50 )
+\end{lstlisting} 
+
+This defines a MSL in x-direction (dir=0) with an $\mathbf{E}$-field excitation in -z-direction. The excitation is placed at x=start(1) and 
+the wave travels toward x=stop(1). The MSL-metal is created in xy-plane at z=0 height by function \hyperref[addmetal]{\matv{'AddMetal()'}}.
+    
+\end{FontDescr}

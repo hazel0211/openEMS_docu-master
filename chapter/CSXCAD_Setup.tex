@@ -1,0 +1,29 @@
+\chapter{Geometrical Setup}\label{chap-CSXCAD}
+	This chapter describes about the setup of properties and primitives of model using the \texttt{CSXCAD} interface. \texttt{CSXCAD} implies a C++ library to describe object geometries and their physical or non-physical properties in an open-source .xml format.  It provides a flexible and mesh-independent geometry definition and supports rectilinear mesh grid. CSXCAD gives absolute liberality to user in aspect of model geometry before simulating it with FDTD method using the OpenEms matlab platform. 
+ 
+\begin{FontNameFunct}{InitCSX()}
+\phantomsection \label{InitCSX}
+\end{FontNameFunct}
+
+\begin{FontDescr}{Purpose:}
+In order to initiate a structure description, one should firstly choose either a Cartesian or Cylindrical coordinate based mesh definition with this function.
+\end{FontDescr}
+
+\begin{FontDescr}{Syntax:}
+ \begin{lstlisting}
+CSX =InitCSX();
+ \end{lstlisting}
+ \end{FontDescr}
+ 
+\begin{FontDescr}{Description:}
+  Initialise the \matv{CSX} data structure by defining a default cartesian mesh and return this values back to \matv{CSX}. If argument \matv{CoordSystem} with option \textcolor{green}{1} is added, the cylindrical mesh definition is set. 
+  \begin{lstlisting}
+CSX = InitCSX('CoordSystem','1');
+  \end{lstlisting}
+\end{FontDescr}
+   
+
+\input{chapter/SEC_CSXCAD_Setup/properties} 
+
+\input{chapter/SEC_CSXCAD_Setup/primitives} \label{CSXprimitives} 
+

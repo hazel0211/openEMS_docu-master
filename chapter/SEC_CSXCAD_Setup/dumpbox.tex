@@ -1,0 +1,93 @@
+This section introduces 'Dumpbox' property to store $\mathbf{E}$,$\mathbf{H}$-field, electrical current , current density and SAR(Specific Absorption Rate) in a specified box.  
+
+
+\begin{FontNameFunct}{AddDump()}
+\end{FontNameFunct}
+
+\begin{FontDescr}{Purpose:}
+Add Dumpbox property into 
+\matv{CSX}\phantomsection\label{CSX} with the given name. 
+\end{FontDescr}
+
+\begin{FontDescr}{Syntax:}
+\begin{lstlisting} 
+ CSX = AddDump(CSX, name, varargin)
+\end{lstlisting}
+\end{FontDescr}
+
+\begin{FontDescr}{Description:}
+
+\begin{FontPara}{DumpType}
+\textcolor{green}{0}: time domain $\mathbf{E}$-field \\
+\textcolor{green}{1}: time domain $\mathbf{H}$-field \\
+\textcolor{green}{2}: time domain electrical current($\mathbf{I}$)  \\
+\textcolor{green}{3}: time domain electrical current density($\vec{\mathbf{J}}$)\\
+
+\textcolor{green}{10}: frequency domain $\mathbf{E}$-field  \\
+\textcolor{green}{11}: frequency domain $\mathbf{H}$-field\\
+\textcolor{green}{12}: frequency domain electrical current($\mathbf{I}$)\\
+\textcolor{green}{13}: frequency domain electrical current density($\vec{\mathbf{J}}$)\\
+
+\textcolor{green}{20}:frequency domain local SAR \\
+
+If this parameter is not set, the default '0' will be adopted. 
+\end{FontPara}
+
+
+\begin{FontPara}{DumpMode}
+\textcolor{green}{0}:no-interpolation \\
+\textcolor{green}{1}:node-interpolation (default DumpMode ,if it is not defined)\\
+\textcolor{green}{2}:cell-interpolation
+
+User are advised to use no- or cell-interpolation for $\mathbf{E}$-field calculation to avoid false result;use no- or node-interpolation for $\mathbf{H}$-field calculation.
+
+\end{FontPara}
+
+\begin{FontPara}{FileType}
+  0 : vtk-file dump  (by default)\\
+  1 : hdf5-file dump
+\end{FontPara}
+
+\begin{FontPara}{Frequency}
+Frequency of interest for dump. 
+\end{FontPara}
+
+\end{FontDescr}
+
+\begin{FontDescr}{Optional Arguments:}
+\begin{FontPara}{SubSampling}
+Field domain sub-sampling. For example, '2,2,4'. It means ?? more explanation is needed  ???
+\end{FontPara}
+
+\begin{FontPara}{OptResolution}
+Field domain dump resolution, For example,'10' or '10,20,5'. It means?? more explanation is needed  ???
+\end{FontPara}
+
+\end{FontDescr}
+
+\begin{FontDescr}{Examples:}
+\begin{lstlisting} 
+AddDump(CSX,'Et');
+CSX = AddBox(CSX,'Et',0,[0 0 0],[100 100 200]); 
+\end{lstlisting}
+
+AddDump is added into \hyperref[CSX]{\matv{CSX}} with name Et.A box primitive with name Et has been assigned for time domain E-field(0) storage.   
+
+\begin{lstlisting} 
+AddDump(CSX,'Ef',DumpType, 10, 'Frequency',[1e9 2e9]);
+CSX = AddBox(CSX,'Ef',10,[0 0 0],[100 100 200])
+\end{lstlisting}
+
+Frequency domain E-field(10)with name Ef has been 'dumped' into \hyperref[CSX]{\matv{CSX}}. The frequency of interest are 100MHz and 200MHz. These properties have been assigned to the box primitive.      
+
+\begin{lstlisting} 
+CSX=AddDump(CSX,'SAR','DumpType',20,'FileType',0,...
+    'DumpMode',2,'Frequency',300e6);
+CSX=AddBox(CSX,'SAR',0,[0 0 0],[100 100 200]);
+\end{lstlisting}
+
+SAR(20) at frequency 300MHz has been 'dumped' into \hyperref[CSX]{\matv{CSX}} in vtk. file type.These properties have been assigned to the box primitive.          
+
+\end{FontDescr}
+
+

@@ -2,7 +2,7 @@
 This section describes the physical and non-physical properties of a model and has to be defined before the primitive properties. 
 
 
-The physical properties which can be used in OpenEMS: 
+The physical properties which can be used: 
  
 \begin{enumerate}
 \item Material Properties(refer to \ref{subsection_material_prop})
@@ -13,7 +13,7 @@ The physical properties which can be used in OpenEMS:
 \end{enumerate}
 
 
-The non-physical properties which can be used in OpenEMS: 
+The non-physical properties which can be used: 
 
 \begin{enumerate}
 \item Electrode (refer to \ref{subsection_Electrode})
@@ -69,9 +69,9 @@ CSX = AddMaterial(CSX, name,varargin)
 \end{myindentpar}  
 \end{FontDescr}
 
-
 \begin{FontNameFunct}{SetMaterialProperty()}
  \end{FontNameFunct}
+ 
 \begin{FontDescr}{Purpose:}
 The material properties such as relative conductivity, permittivity and permeability can be defined with this function.
 \end{FontDescr}
@@ -82,27 +82,30 @@ The material properties such as relative conductivity, permittivity and permeabi
   \end{lstlisting}
  \end{FontDescr}
   
- %\begin{FontDescr}{Description:} 
- 
+ \begin{FontDescr}{Description:} 
  \begin{FontDescr}{Optional Arguments:}
-  It has to be defined by user to specific the material properties. 
-   \begin{FontPara}{Epsilon} Relative permittivity [1 by default]\end{FontPara}
+  It has to be defined by user to specific the material properties.\\ 
 
-  \begin{FontPara}{Mue} Relative magnetic permeability[1 by default]\end{FontPara}
+   \textcolor{varcol}{Epsilon($\varepsilon_{r}$)}\begin{myindentpar}
+     Relative permittivity [1 by default].\end{myindentpar} 
 
-  \begin{FontPara}{Kappa} Electric conductivity[$\frac{S}{m}$]\end{FontPara}
+ \textcolor{varcol}{Mue($\mu_{r}$)} \begin{myindentpar}
+Relative magnetic permeability[1 by default].\end{myindentpar}   
 
-   \begin{FontPara}{Sigma} Magnetic conductivity [$\frac{\Omega}{m}$]\end{FontPara}
+  \textcolor{varcol}{Kappa($\kappa$)} \begin{myindentpar} Electric conductivity[$\frac{S}{m}$].
+\end{myindentpar} 
+
+  \textcolor{varcol}{Sigma($\sigma$)} \begin{myindentpar}Magnetic conductivity [$\frac{\Omega}{m}$].\end{myindentpar} 
 
   \begin{FontPara}{Density} Material mass density[$\frac{Kg}{m^{3}}$] \end{FontPara}
 
    They are some frequency dependent properties which are used in describing dispersive material.Refer to \ref{subsection_dispersive_material}. 
   
-% \end{FontDescr}
+ \end{FontDescr}
  \end{FontDescr}
 
 
-\begin{FontNameFunct}{SetMaterialWeight()}
+\begin{FontNameFunct}{SetMaterialWeight}
 \end{FontNameFunct}
 
 \begin{FontDescr}{Syntax:}
@@ -153,8 +156,8 @@ the azimuthal angle in spherical coordinate system . $t=\arccos (z,r)$
 \end{lstlisting}
  
  The first syntax adds a dielectric material named Ro3003. It has relative permittivity of 3 and relative permeability of 1. If lossy dielectric is introduced, one can set \matv{Kappa}
-($\sigma$)to its correponding value with known lost tangent ($\delta$): \begin{equation}
-\sigma=2*pi*freq*\varepsilon*\tan(\delta)
+($\kappa$)to its correponding value with known lost tangent ($\delta$): \begin{equation}
+\kappa=2*pi*freq*\varepsilon*\tan(\delta)
 \end{equation} 
 \begin{lstlisting}
  CSX = AddMaterial( CSX, 'RO3003' );
