@@ -1,0 +1,51 @@
+Introduce a cylinder into\hyperref[CSX]{\matv{CSX}} with predefined matlab function \texttt{AddCylinder}.
+
+\begin{FontNameFunct}{AddCylinder()}
+\end{FontNameFunct}
+
+\begin{FontDescr}{Purpose:}
+Define cylinder with its axis(where it extends) and radius and assign a property to it. 
+\end{FontDescr}
+
+\begin{FontDescr}{Syntax:}
+\begin{lstlisting} 
+ CSX = AddCylinder(CSX, propName, prio, start, stop, rad, varargin)
+\end{lstlisting}
+\end{FontDescr}
+
+\begin{FontDescr}{Description:}
+
+\begin{FontPara}{propName}
+Refer to \hyperref[prim_Name]{propName} in \texttt{AddBox}. 
+\end{FontPara}
+
+\begin{FontPara}{start}
+A vector represents start point of cylinder axis.  
+\end{FontPara}
+
+\begin{FontPara}{stop}
+End point of cylinder axis(vector). Extend in the same direction as start point.  
+\end{FontPara}
+
+\begin{FontPara}{rad}
+Radius of cylinder. In drawing unit. 
+\end{FontPara}
+\end{FontDescr}
+
+\begin{FontDescr}{Optional Arguments:}
+The standard trasformation (rotation,translation,scaling) mentioned in  \hyperref[prim_transform]{\matv{'Transform'}} of \texttt{AddBox}.  
+\end{FontDescr}
+
+\begin{FontDescr}{Examples:}
+
+\begin{lstlisting} 
+CSX=AddMaterial(CSX,'phantom');
+CSX=SetMaterialProperty(CSX,'phantom','Epsilon',75.5,
+'Kappa',0.438,'Density',1000);
+start=[0 0 -30 ];
+stop=[0 0 30 ];
+CSX=AddCylinder(CSX,'phantom',5,start,stop,10);
+\end{lstlisting}
+This example introduces a 10(drawing unit) radius homogeneous phantom into\hyperref[CSX]{\matv{CSX}}. This phantom has properties of $\varepsilon_{r}$=75.5, $\kappa$=0.438 and density of 1000. It extends in z-direction and has 60(drawing unit)height.  
+
+\end{FontDescr}

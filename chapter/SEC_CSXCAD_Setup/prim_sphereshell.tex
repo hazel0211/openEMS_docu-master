@@ -1,0 +1,41 @@
+Introduce a spherical shell into\hyperref[CSX]{\matv{CSX}}. 
+
+\begin{FontNameFunct}{AddSphericalShell()}
+\end{FontNameFunct}
+
+\begin{FontDescr}{Purpose:}
+To add a spherical shell in\hyperref[CSX]{\matv{CSX}} by defining its radius, center point and shell width. 
+\end{FontDescr}
+
+\begin{FontDescr}{Syntax:}
+\begin{lstlisting}
+CSX = AddSphericalShell(CSX, propName, prio, center, rad, shell_width, varargin) 
+\end{lstlisting}
+\end{FontDescr}
+
+\begin{FontDescr}{Description:}
+The parameters are defined same as those in \texttt{AddSphere}(subsection~\ref{sphere}) except the following: \\
+\textcolor{varcol}{shell$\_$width}
+\begin{myindentpar} Width of the shell. The inner radius and outer radius of shell is calculated as shown in \hyperref[rin]{$r_{in}$} and \hyperref[rout]{$r_{out}$} of section \ref{cylindershell}.
+\end{myindentpar} 
+\end{FontDescr}
+
+\begin{FontDescr}{Optional Arguments:}
+The standard trasformation (rotation,translation,scaling) mentioned in  \hyperref[prim_transform]{\matv{'Transform'}} of \texttt{AddBox}.   
+\end{FontDescr}
+
+\begin{FontDescr}{Examples:}
+
+\begin{lstlisting} 
+ CSX = AddMetal(CSX,'metal'); 
+ CSX = AddSphericalShell(CSX,'metal',10,[0 0 0],50,10);
+\end{lstlisting}
+A metallic spherical shell of radius 50 has been added into\hyperref[CSX]{\matv{CSX}}. The thickness of shell is 10. So, the inner radius of shell is 50-10/2=45 while outer radius of shell is 50+10/2=55.   
+
+\begin{lstlisting} 
+ CSX = AddMetal(CSX,'metal'); 
+ CSX = AddSphericalShell(CSX,'metal',10,[0 0 0],50,10,'Transform',{'Scale','3,3,3'});
+\end{lstlisting}
+The above mentioned spherical shell has been scaled with factor 3. It is 3 times larger than original size. 
+
+\end{FontDescr}

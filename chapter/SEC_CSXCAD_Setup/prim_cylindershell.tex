@@ -1,0 +1,52 @@
+Introduce a cylindrical shell into\hyperref[CSX]{\matv{CSX}}. 
+
+\begin{FontNameFunct}{AddCylindricalShell()}
+\end{FontNameFunct}
+
+
+\begin{FontDescr}{Purpose:}
+To add cylinder with specified shell width to\hyperref[CSX]{\matv{CSX}}. 
+\end{FontDescr}
+
+\begin{FontDescr}{Syntax:}
+\begin{lstlisting} 
+ CSX = AddCylindricalShell(CSX, propName, prio, start, stop, rad, shell_width, varargin)
+\end{lstlisting}
+\end{FontDescr}
+
+\begin{FontDescr}{Description:}
+The parameters are defined same as those in \texttt{Addcylinder}(\ref{cylinder}) except the following: \\
+\textcolor{varcol}{shell$\_$width}
+\begin{myindentpar} Width of the shell. The inner radius($r_{in}$) and outer radius($r_{out}$) of shell are:
+
+\begin{equation}    
+r_{in}=rad-shell_width/2 
+\end{equation}
+\label{rin}
+\begin{equation}
+r_{out}=rad+shell_width/2 
+\end{equation}
+\label{rout}
+
+\end{myindentpar} 
+
+\end{FontDescr}
+
+\begin{FontDescr}{Optional Arguments:}
+The standard trasformation (rotation,translation,scaling) mentioned in  \hyperref[prim_transform]{\matv{'Transform'}} of \texttt{AddBox}.   
+\end{FontDescr}
+
+\begin{FontDescr}{Examples:}
+
+\begin{lstlisting} 
+CSX=AddMaterial(CSX,'plexi_shield');
+CSX=SetMaterialProperty(CSX,'plexi_shield','Epsilon'
+,2.22);
+start=[0 0 -30 ];
+stop=[0 0 30 ];
+CSX=AddCylindricalShell(CSX,'plexi_shield',5,start,stop,
+20,10);
+\end{lstlisting}
+A cylinder shell of radius 20 and shell width of 10 has defined around z-axis.It has dielectric material property($\varepsilon_{r}$=2.22) and height of 60. The inner radius of cylindrical shell is 20-10/2=15 ; the outer radius of it is 20+10/2=25 drawing unit.    
+\end{FontDescr}
+

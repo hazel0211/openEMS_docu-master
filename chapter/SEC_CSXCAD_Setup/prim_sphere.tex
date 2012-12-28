@@ -1,0 +1,53 @@
+Introduce a sphere into\hyperref[CSX]{\matv{CSX}}. 
+
+\begin{FontNameFunct}{AddSphere()}
+\end{FontNameFunct}
+
+
+\begin{FontDescr}{Purpose:}
+To add a sphere into\matv{CSX}\phantomsection\label{CSX} by defining its radius and center point and assign a material property to it.  
+\end{FontDescr}
+
+\begin{FontDescr}{Syntax:}
+\begin{lstlisting} 
+CSX = AddSphere(CSX, propName, prio, center, rad, varargin)
+\end{lstlisting}
+\end{FontDescr}
+
+\begin{FontDescr}{Description:}
+
+\begin{FontPara}{propName}
+Refer to \hyperref[prim_Name]{propName} in \texttt{AddBox}. 
+\end{FontPara}
+
+\begin{FontPara}{center}
+Sphere center point.(Vector) 
+\end{FontPara}
+
+\begin{FontPara}{rad}
+Radius of a sphere.
+\end{FontPara}
+\end{FontDescr}
+
+\begin{FontDescr}{Optional Arguments:}
+The standard trasformation (rotation,translation,scaling) mentioned in  \hyperref[prim_transform]{\matv{'Transform'}} of \texttt{AddBox}.   
+\end{FontDescr}
+
+\begin{FontDescr}{Examples:}
+
+\begin{lstlisting} 
+CSX = AddMetal(CSX,'metal'); 
+CSX = AddSphere(CSX,'metal',10,[0 0 0],50);
+\end{lstlisting}
+This example creates a metallic sphere of radius 50(drawing unit) at origin. 
+
+\begin{lstlisting} 
+CSX = AddMetal(CSX,'metal'); 
+CSX = AddSphere(CSX,'metal1',10,[0 0 0],10,'Transform',{'Translate','0,0,50'});  
+\end{lstlisting}
+The above sphere has been shifted in z-direction 50(drawing unit) above the origin. 
+
+\end{FontDescr}
+
+
+

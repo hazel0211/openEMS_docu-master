@@ -1,0 +1,89 @@
+User can define a cube(3D),rectangular cube(3D),plane(2D),line(1D) or a point with this primitive by defining its lower-left-bottom and upper-right-top edge.
+
+\begin{FontNameFunct}{AddBox()}
+\end{FontNameFunct} 
+
+\begin{FontDescr}{Purpose:}
+Add a box to \matv{CSX}\phantomsection\label{CSX} with predefined property in either cartesian- or cylindrical- coordinate. The name of property and primitive must match.  
+\end{FontDescr}
+
+\begin{FontDescr}{Syntax:}
+\begin{lstlisting} 
+ CSX = AddBox(CSX, propName, prio, start, stop, varargin)
+\end{lstlisting}
+\end{FontDescr}
+
+\begin{FontDescr}{Description:}
+
+\begin{FontPara}{propName} \phantomsection \label{prim_Name}
+Primitive Name which must be the same with that mentioned in the \texttt{Add<...property...>}. Refer to \hyperref[subsection_gprop_setup]{subsection 4.1.1}.
+\end{FontPara}
+
+\begin{FontPara}{start}
+Start coordinate of a box.(vector)
+\end{FontPara}
+
+\begin{FontPara}{stop}
+Stop coordinate of a box.(vector)
+\end{FontPara}
+
+\end{FontDescr}
+
+\begin{FontDescr}{Optional Arguments:} \phantomsection \label{prim_transform}
+\begin{FontPara}{'Transform'}
+Transformation of a primitive in 3D material/metal discretisation.
+\begin{itemize}
+\item\textcolor{varcol}{'Scale'}: scale the model with scale factor.\\ For example,'1,1,2': the z-dimension is scaled with 2. 
+
+\item\textcolor{varcol}{'Rotate$\_$X'}:  Rotate the structure around x-axis.\\ For example, pi/4: structure will be rotated $45^{0}$. \\'Rotate$\_$Y' and 'Rotate$\_$Z' are available too.  
+
+\item\textcolor{varcol}{'Translate'}: Translate the structure with defined distance.\\For example,'0,0,100': model will be z-direction shifted to 100 drawing unit.
+\end{itemize}
+\end{FontPara}
+\end{FontDescr}
+
+\begin{FontDescr}{Examples:}
+
+\begin{lstlisting}
+ CSX=InitCSX('CoordSystem',0);
+ CSX = AddMetal(CSX,'metal'); 
+ CSX = AddBox(CSX,'metal',10,[0 0 -100],[100 100 0]);
+\end{lstlisting} 
+
+A metal box has been defined in Cartesian coordinate and has size 100x100x100 in drawing unit.
+
+\begin{lstlisting}
+CSX=InitCSX('CoordSystem',0);
+CSX = AddMetal(CSX,'metal'); 
+CSX = AddBox(CSX,'metal',10,[0 0 -100],[100 100 0],'Transform', {'Rotate_Z', pi/4});  
+\end{lstlisting}  
+The box is then rotated $45^{0}$ around z-axis.   
+
+
+The following example will describe the box definition in cylindrical coordinate: 
+
+\begin{lstlisting} 
+ CSX=InitCSX('CoordSystem',1);
+ radius=100;
+ mesh_factor=[1 1/radius 1];
+ CSX = AddMetal(CSX,'metal'); 
+ CSX = AddBox(CSX,'metal',10,[0 0 -100].* mesh_factor,[100 100 0].* mesh_factor);
+\end{lstlisting}
+The metal box has been transformed into a sector of a circle with radius=100. The dimension of a box: 
+\begin{itemize}
+\item x=0 $\rightarrow$ 100    $\Rightarrow $   r=0 $\rightarrow$ 100
+
+\item y=0$\rightarrow$ 100     $\Rightarrow $   a=0 $\rightarrow$ 100/radius(=1 radian)
+
+\item z=-100$\rightarrow$ 0    $\Rightarrow $   z=-100 $\rightarrow$ 0
+\end{itemize}            
+\end{FontDescr}
+
+\begin{figure}[hbt]
+\centering
+\subfloat[In Cartesian coordinate]{\includegraphics[width=0.39\textwidth]{svg/box_carteco.pdf}}
+\subfloat[In Cylindrical coordinate]{\includegraphics[width=0.4\textwidth]{svg/box_cylinderco.pdf}}
+\caption{Top view of the box in Cartesian coordinate and Cylindrical coordinate.}
+\label{fig:primBox}
+\end{figure}
+
