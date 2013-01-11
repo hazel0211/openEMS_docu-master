@@ -1,0 +1,47 @@
+Introduce a curve with defined radius into \hyperref[CSX]{\matv{CSX}} with matlab function \texttt{AddWire} and assign a property to it. 
+
+\begin{FontNameFunct}{AddWire()}
+\end{FontNameFunct}
+
+
+\begin{FontDescr}{Purpose:}
+Add wire to \hyperref[CSX]{\matv{CSX}} by defining its coordinate arrays and radius. Take note that wire is not a solid cylinder!  
+\end{FontDescr}
+
+\begin{FontDescr}{Syntax:}
+\begin{lstlisting} 
+ CSX = AddWire(CSX, propName, prio, points, wire_rad, varargin)
+\end{lstlisting}
+\end{FontDescr}
+
+\begin{FontDescr}{Description:}
+
+\begin{FontPara}{propName}
+Refer to \hyperref[prim_Name]{propName} in \texttt{AddBox}. 
+\end{FontPara}
+
+\begin{FontPara}{points}
+Refer to parameter \hyperref[points_curve]{\matv{points}} in section \ref{curve}.
+\end{FontPara}
+
+\textcolor{varcol}{wire$\_$rad}
+\begin{myindentpar}
+Wire radius. 
+\end{myindentpar}
+\end{FontDescr}
+
+\begin{FontDescr}{Optional Arguments:}
+The standard trasformation (rotation,translation,scaling) mentioned in  \hyperref[prim_transform]{\matv{'Transform'}} of \texttt{AddBox}.   
+\end{FontDescr}
+
+\begin{FontDescr}{Examples:}
+\begin{lstlisting} 
+%first point
+     points(1,1) = 0;points(2,1) = 5;points(3,1) = 0; 
+%second point
+     points(1,2) = 0;points(2,2) = 5;points(3,2) = 100; 
+     CSX = AddMetal(CSX,'metal'); 
+     CSX = AddWire(CSX,'metal',10, points,2);
+\end{lstlisting}
+This example creates a metallic 100 unit long wire.This wire is hollow cylinder with defined radius and very thin shell width.   
+\end{FontDescr}
